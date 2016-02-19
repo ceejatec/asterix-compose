@@ -1,8 +1,9 @@
 FROM centos:7.2.1511
 
 USER root
+COPY docker.repo /etc/yum.repos.d/docker.repo
 RUN yum clean all && \
-    yum install --setopt=keepcache=0 -y openssh-server openssh-clients sudo deltarpm unzip
+    yum install --setopt=keepcache=0 -y openssh-server openssh-clients sudo deltarpm unzip docker-engine
 
 # Set up for SSH daemon
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config && \
@@ -12,15 +13,16 @@ RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config && \
 
 # JDK.
 RUN mkdir /tmp/deploy && \
+    cd /tmp/deploy && \
     curl -L --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
     http://download.oracle.com/otn-pub/java/jdk/8u71-b15/jdk-8u71-linux-x64.rpm -o jdk.rpm && \
     yum localinstall -y jdk.rpm && \
     cd /tmp && rm -rf deploy
 
-# Create couchbase user with password-less sudo privs, and give
-# ownership of /opt/couchbase
+# Create couchbase user with password-less sudo privs. Also join the "Docker"
+# group, which is 999 on the Ubuntu host
 RUN groupadd -g1000 couchbase && \
-    useradd couchbase -g couchbase -u1000 -G wheel -m -s /bin/bash && \
+    useradd couchbase -g couchbase -u1000 -G wheel,999 -m -s /bin/bash && \
     echo 'couchbase:couchbase' | chpasswd && \
     echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/wheel_group && \
     echo 'Defaults:%wheel !requiretty' >> /etc/sudoers.d/wheel_group && \

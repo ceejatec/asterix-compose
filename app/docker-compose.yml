@@ -1,5 +1,22 @@
 version: "2" 
 services:
+  jenkins:
+    image: jenkins:1.642.1
+    volumes:
+      - ../nodes/jenkins:/var/jenkins_home
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    networks:
+      - asterix
+
+  jenkins-slave:
+    image: ceejatec/asterix-centos7
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - asterix
+
   nc1:
     image: ceejatec/asterix-centos7
     volumes:
