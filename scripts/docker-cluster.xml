@@ -1,0 +1,71 @@
+<cluster xmlns="cluster">
+
+  <!-- Name of the cluster -->
+  <name>docker-cluster</name>
+
+  <!-- username, which should be valid for all the three machines -->
+  <username>couchbase</username>
+
+  <!-- The working directory of Managix. It is recommended for the working
+       directory to be on a network file system (NFS) that can accessed by
+       all machines. 
+       Managix creates the directory if it it doesn't exist. -->
+  <working_dir>
+    <dir>/home/couchbase/shared</dir>
+    <NFS>true</NFS>
+  </working_dir>
+
+  <!-- Directory for Asterix to store log information for each machine.
+       Needs to be on the local file system of each machine.
+       Managix creates the directory if it doesn't exist. 
+       This property can be overriden for a node by redefining at the node level. -->
+  <log_dir>/home/couchbase/logs</log_dir>
+
+  <txn_log_dir>/home/couchbase/txn_logs</txn_log_dir>
+
+  <!-- Mount point of an iodevice. Use a comma separated list for a machine that
+       has multiple iodevices (disks).
+       This property can be overriden for a node by redefining at the node level. -->
+  <iodevices>/home/couchbase/iodevice</iodevices>
+
+  <!-- Path on each iodevice where Asterix will store its data -->
+  <store>storage</store>
+
+  <!-- Java home for each machine -->
+  <java_home>/usr/java/jdk1.8.0_71/</java_home>
+
+  <!-- IP addresses of nc1 -->
+  <master_node>
+    <id>cc</id>
+    <client_ip>nc1</client_ip>
+    <cluster_ip>nc1</cluster_ip>
+    <client_port>1098</client_port>
+    <cluster_port>1099</cluster_port>
+    <http_port>8888</http_port>
+  </master_node>
+
+  <!-- IP address(es) of nc1 -->
+  <node>
+    <id>nc1</id>
+    <cluster_ip>nc1</cluster_ip>
+  </node>
+
+  <!-- IP address(es) of nc2 -->
+  <node>
+    <id>nc2</id>
+    <cluster_ip>nc2</cluster_ip>
+  </node>
+
+  <!-- IP address(es) of nc3 -->
+  <node>
+    <id>nc3</id>
+    <cluster_ip>nc3</cluster_ip>
+  </node>
+
+  <!-- IP address(es) of nc4 -->
+  <node>
+    <id>nc4</id>
+    <cluster_ip>nc4</cluster_ip>
+  </node>
+</cluster>
+
