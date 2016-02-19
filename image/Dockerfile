@@ -3,7 +3,9 @@ FROM centos:7.2.1511
 USER root
 COPY docker.repo /etc/yum.repos.d/docker.repo
 RUN yum clean all && \
-    yum install --setopt=keepcache=0 -y openssh-server openssh-clients sudo deltarpm unzip docker-engine
+    yum install --setopt=keepcache=0 -y openssh-server openssh-clients sudo deltarpm unzip docker-engine git && \
+    curl -L https://github.com/docker/compose/releases/download/1.6.0/run.sh > /usr/local/bin/docker-compose && \
+    chmod 755 /usr/local/bin/docker-compose
 
 # Set up for SSH daemon
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config && \
