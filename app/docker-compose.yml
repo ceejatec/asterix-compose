@@ -15,6 +15,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../nodes/as-shared:/home/couchbase/shared
+      - ../nodes/jenkins-slave:/home/couchbase/jenkins
     networks:
       - asterix
 
