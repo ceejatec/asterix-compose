@@ -1,6 +1,6 @@
 #!/bin/sh
 
-docker run --rm --net=image_asterix couchbase \
+docker run --rm --net=app_asterix couchbase \
   couchbase-cli cluster-init \
   -c couchbase1.host \
   --cluster-init-username=Administrator \
@@ -8,7 +8,7 @@ docker run --rm --net=image_asterix couchbase \
   --cluster-init-ramsize=600 \
   -u admin -p password
 
-docker run --rm --net=image_asterix couchbase \
+docker run --rm --net=app_asterix couchbase \
   couchbase-cli bucket-create \
   -c couchbase1.host \
   --bucket=default \
@@ -18,7 +18,7 @@ docker run --rm --net=image_asterix couchbase \
   --bucket-replica=1 \
   -u Administrator -p couchbase
 
-docker run --rm --net=image_asterix couchbase \
+docker run --rm --net=app_asterix couchbase \
   couchbase-cli server-add \
   -c couchbase1.host \
   -u Administrator -p couchbase \
@@ -26,7 +26,7 @@ docker run --rm --net=image_asterix couchbase \
   --server-add-username Administrator \
   --server-add-password couchbase
 
-docker run --rm --net=image_asterix couchbase \
+docker run --rm --net=app_asterix couchbase \
   couchbase-cli rebalance \
   -c couchbase1.host \
   -u Administrator -p couchbase \
