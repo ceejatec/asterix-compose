@@ -32,7 +32,7 @@
   <store>storage</store>
 
   <!-- Java home for each machine -->
-  <java_home>/usr/java/jdk1.8.0_71/</java_home>
+  <java_home>/usr/java/jdk1.8.0_74</java_home>
 
   <!-- IP addresses of nc1 -->
   <master_node>
