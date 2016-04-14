@@ -23,7 +23,6 @@ services:
     image: ceejatec/asterix-centos7
     volumes:
       - ../nodes/as-shared:/home/couchbase/shared
-      - ../nodes/as1:/home/couchbase/data
     ports:
       - "2221:22"
       - "19001:19001"
@@ -36,7 +35,6 @@ services:
     image: ceejatec/asterix-centos7
     volumes:
       - ../nodes/as-shared:/home/couchbase/shared
-      - ../nodes/as2:/home/couchbase/data
     ports:
       - "2222:22"
     networks:
@@ -46,7 +44,6 @@ services:
     image: ceejatec/asterix-centos7
     volumes:
       - ../nodes/as-shared:/home/couchbase/shared
-      - ../nodes/as3:/home/couchbase/data
     ports:
       - "2223:22"
     networks:
@@ -56,7 +53,6 @@ services:
     image: ceejatec/asterix-centos7
     volumes:
       - ../nodes/as-shared:/home/couchbase/shared
-      - ../nodes/as4:/home/couchbase/data
     ports:
       - "2224:22"
     networks:
@@ -64,22 +60,16 @@ services:
 
   couchbase1.host:
     image: couchbase
-    volumes:
-      - ../nodes/cb1:/opt/couchbase/var
     networks:
       - asterix
 
   couchbase2.host:
     image: couchbase
-    volumes:
-      - ../nodes/cb2:/opt/couchbase/var
     networks:
       - asterix
 
   couchbase3.host:
     image: couchbase
-    volumes:
-      - ../nodes/cb3:/opt/couchbase/var
     ports:
       - 8091:8091
       - 8092:8092 
