@@ -48,9 +48,7 @@ RUN ssh-keygen -q -t rsa -P "" < /dev/zero && \
     chmod 600 /home/couchbase/.ssh/authorized_keys
 
 USER root
-COPY config /home/couchbase/.ssh/config
-RUN chown couchbase:couchbase /home/couchbase/.ssh/config
-COPY startup.sh /usr/sbin/
+COPY startup.sh sshconfigbase /usr/sbin/
 ENTRYPOINT [ "/usr/sbin/startup.sh" ]
 CMD [ "default" ]
 
