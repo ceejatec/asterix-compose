@@ -32,6 +32,10 @@ RUN mkdir /tmp/deploy && \
     ln -s /usr/local/apache-maven-3.3.9/bin/mvn /usr/local/bin/mvn && \
     rm -rf /tmp/deploy
 
+# Repo.
+RUN curl https://storage.googleapis.com/git-repo-downloads/repo -o /usr/local/bin/repo && \
+    chmod a+x /usr/local/bin/repo
+
 # Create couchbase user with password-less sudo privs. Also join the "Docker"
 # group, which is 999 on the Ubuntu host
 RUN groupadd -g1000 couchbase && \
