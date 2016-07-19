@@ -1,0 +1,36 @@
+---
+- hosts: all
+
+  tasks:
+    - name: Create Asterix installation directory
+      file:
+        path: /home/couchbase/asterix
+        state: directory
+
+    - name: Download and unpack Asterix
+      unarchive:
+        src: /home/couchbase/asterix-server-binary-assembly.zip
+        dest: /home/couchbase/asterix
+        owner: couchbase
+        group: couchbase
+        creates: /home/couchbase/asterix/bin/asterixncservice
+
+- hosts: ncs
+
+  tasks:
+    - name: Start NC Service
+      shell: >
+        nohup /home/couchbase/asterix/bin/asterixncservice < /dev/null > /home/couchbase/ncservice.log 2>&1 &
+
+- hosts: cc
+
+  tasks:
+    - name: Copy cluster config to CC
+      copy:
+        src: asterix.conf
+        dest: /home/couchbase
+        
+    - name: Start CC
+      shell: >
+        nohup /home/couchbase/asterix/bin/asterixcc -config-file /home/couchbase/asterix.conf < /dev/null > /home/couchbase/cc.log 2>&1 &
+
