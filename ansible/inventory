@@ -1,0 +1,12 @@
+[ncs]
+nc1
+nc2
+nc3
+nc4
+
+[cc]
+nc1
+
+[all:vars]
+ansible_user=couchbase
+

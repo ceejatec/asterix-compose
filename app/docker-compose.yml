@@ -80,6 +80,13 @@ services:
     networks:
       - asterix
 
+  ansible:
+    container_name: ansible
+    image: ceejatec/asterix-ansible
+    volumes:
+      - "../ansible:/home/couchbase/ansible"
+    networks:
+      - asterix
 
 networks:
   asterix:
